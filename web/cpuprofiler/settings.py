@@ -12,22 +12,24 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import dotenv
-from decouple import Config, RepositoryEnv
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DOTENV_FILE = BASE_DIR / '../.env'
-env_config = Config(RepositoryEnv(DOTENV_FILE))
+SECRET_KEY = config('SECRET_KEY')
 
-SECRET_KEY = env_config.get('SECRET_KEY')
+POSTGRESQL_HOST = config('POSTGRESQL_HOST', default='localhost')
+POSTGRESQL_PORT = config('POSTGRESQL_PORT', default=5432, cast=int)
+POSTGRESQL_USER = config('POSTGRESQL_USER')
+POSTGRESQL_PASSWORD = config('POSTGRESQL_PASSWORD')
+POSTGRESQL_DATABASE = config('POSTGRESQL_DATABASE')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -82,8 +84,12 @@ WSGI_APPLICATION = 'cpuprofiler.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': POSTGRESQL_DATABASE,
+        'USER': POSTGRESQL_USER,
+        'PASSWORD': POSTGRESQL_PASSWORD,
+        'HOST': POSTGRESQL_HOST,
+        'PORT': POSTGRESQL_PORT,
     }
 }
 

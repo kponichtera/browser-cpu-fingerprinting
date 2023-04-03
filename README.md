@@ -13,6 +13,9 @@ First create a `.env` file in the repository folder containing:
 ```
 SECRET_KEY=<something>
 REDEEM_SECRET=<something>
+POSTGRESQL_USER=web
+POSTGRESQL_PASSWORD=web
+POSTGRESQL_DATABASE=web
 ```
 
 Then create a new Python virtual environment and install the dependencies:

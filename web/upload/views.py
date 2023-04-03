@@ -11,7 +11,7 @@ import numpy as np
 import hashlib
 import os
 import dotenv
-from decouple import Config, RepositoryEnv
+from decouple import config
 from pathlib import Path
 
 from .models import BenchmarkResult
@@ -19,11 +19,7 @@ from .models import BenchmarkResult
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DOTENV_FILE = BASE_DIR / '../.env'
-env_config = Config(RepositoryEnv(DOTENV_FILE))
-
-REDEEM_SECRET = env_config.get('REDEEM_SECRET')
-
+REDEEM_SECRET = config('REDEEM_SECRET')
 
 def line_graph(points):
     fig = matplotlib.figure.Figure()

@@ -1,0 +1,4 @@
+-- Create users
+CREATE USER web WITH CREATEDB PASSWORD 'web';
+
+CREATE DATABASE web WITH OWNER web;
